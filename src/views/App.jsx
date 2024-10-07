@@ -4,7 +4,9 @@ import RoutesIndex from '../utils/routes';
 function App() {
   return (
     <Router>
-      <RoutesIndex />
+      <div className="bg-gray-100">
+        <RoutesIndex />
+      </div>
     </Router>
   );
 }

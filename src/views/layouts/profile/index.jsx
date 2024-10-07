@@ -1,5 +1,9 @@
+import ProfileLayout from "./layout";
+
 function ProfileIndex() {
-    return (<></>);
+    return (
+        <ProfileLayout />
+    );
 }
   
 export default ProfileIndex

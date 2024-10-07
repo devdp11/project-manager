@@ -1,5 +1,9 @@
+import ProfileIndex from "../../layouts/profile";
+
 function ProfilePage() {
-    return (<></>);
+    return (
+        <ProfileIndex />
+    );
 }
   
 export default ProfilePage

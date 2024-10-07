@@ -45,21 +45,21 @@ const NavBarLayout = ({ isAuthenticated }) => {
                     </Link>
                     <div className="flex-1 flex items-center justify-end hidden sm:flex">
                         <div className="flex-10">
-                            <ul className="flex items-center gap-5 text-[16px]">
+                            <ul className="flex items-center gap-5 text-[17px]">
                                 <Link to="#">
-                                    <button className="relative font-bold text-black transition-all hover:text-blue-700 cursor-pointer overflow-hidden group">
+                                    <button className="relative font-bold transition-all hover:text-blue-700 cursor-pointer overflow-hidden group">
                                         <span className="transition align-middle">Docs</span>
                                         <span className="absolute bottom-0 right-0 w-full h-[2px] bg-blue-700 transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300 ease-out"></span>
                                     </button>
                                 </Link>
                                 <Link to="#">
-                                    <button className="relative font-bold text-black transition-all hover:text-blue-700 cursor-pointer overflow-hidden group">
+                                    <button className="relative font-bold transition-all hover:text-blue-700 cursor-pointer overflow-hidden group">
                                         <span className="transition align-middle">Contacts</span>
                                         <span className="absolute bottom-0 right-0 w-full h-[2px] bg-blue-700 transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300 ease-out"></span>
                                     </button>
                                 </Link>
                                 <Link to="#">
-                                    <button className="relative font-bold text-black transition-all hover:text-blue-700 cursor-pointer overflow-hidden group">
+                                    <button className="relative font-bold transition-all hover:text-blue-700 cursor-pointer overflow-hidden group">
                                         <span className="transition align-middle">Prices</span>
                                         <span className="absolute bottom-0 right-0 w-full h-[2px] bg-blue-700 transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300 ease-out"></span>
                                     </button>
@@ -68,7 +68,7 @@ const NavBarLayout = ({ isAuthenticated }) => {
                                     <li ref={dropdownRef} className="relative flex items-center justify-center w-10 h-10 rounded-full text-white font-semibold transition cursor-pointer" onClick={HandleDropdown}>
                                         <img src={avatar} className="w-10 h-10 rounded-full border border-black object-cover" />
                                         {dropdown && (
-                                            <ul className="absolute rounded-xl text-black right-0 top-11 w-48 rounded shadow-lg bg-gray-100">
+                                            <ul className="absolute rounded-xl text-slate-900 right-0 top-11 w-48 rounded shadow-lg bg-gray-100">
                                                 <Link to="/profile">
                                                     <li className="font-normal flex rounded-tl-2xl rounded-tr-2xl items-center px-4 py-2 cursor-pointer">
                                                         <FaEye className="mr-2" />
@@ -90,16 +90,16 @@ const NavBarLayout = ({ isAuthenticated }) => {
                                         )}
                                     </li>
                                 ) : (
-                                    <div className='flex gap-2'>
+                                    <div className='flex gap-4'>
                                         <Link to="/auth/login">
-                                            <button className="relative border-2 py-0.5 px-3 rounded-lg border-blue-700 hover:text-white hover:bg-blue-700 font-semibold text-blue-700 transition-all cursor-pointer overflow-hidden group">
-                                                <span className="transition align-middle">Login</span>
+                                            <button className="relative px-5 py-1 border-2 border-blue-700 rounded-full text-blue-700 font-semibold transition-all hover:bg-blue-700 hover:text-white shadow-md hover:shadow-lg">
+                                                <span className="align-middle">Log in</span>
                                             </button>
                                         </Link>
 
                                         <Link to="/auth/register">
-                                            <button className="relative border-2 py-0.5 px-2 rounded-lg border-slate-900 hover:text-white hover:bg-slate-900 font-semibold text-slate-900 transition-all cursor-pointer overflow-hidden group">
-                                                <span className="transition align-middle">Register</span>
+                                            <button className="relative px-5 py-1 border-2 border-slate-900 rounded-full text-slate-900 font-semibold transition-all hover:bg-slate-900 hover:text-white shadow-md hover:shadow-lg">
+                                                <span className="align-middle">Register</span>
                                             </button>
                                         </Link>
                                     </div>
@@ -115,8 +115,7 @@ const NavBarLayout = ({ isAuthenticated }) => {
                 </div>
             </nav>
 
-            <div className="mt-20">
-            </div>
+            <div className="mt-20" />
         </>
     );
 }
