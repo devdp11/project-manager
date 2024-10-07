@@ -8,15 +8,17 @@ import ProfilePage from '../../views/pages/profile';
 import LoginPage from '../../views/pages/_auth/login';
 import RegisterPage from '../../views/pages/_auth/register';
 
+import ComputerNavBarIndex from '../../components/templates/navbar/computer';
+
 function RoutesLogic() {
 
-  /* const { isAuthenticated } = UseAuthContext(); */
+  const isAuthenticated = true;
   const location = useLocation();
 
   return (
     <>
       
-      {/* {location.pathname !== "/login" && location.pathname !== "/register" && <NavBar isAuthenticated={isAuthenticated} />} */}
+      {location.pathname !== "/auth/login" && location.pathname !== "/auth/register" && <ComputerNavBarIndex isAuthenticated={isAuthenticated} />}
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/home" element={<HomePage />} />
