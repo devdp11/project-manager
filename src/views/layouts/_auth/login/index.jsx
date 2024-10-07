@@ -1,5 +1,9 @@
+import LoginLayout from "./layout";
+
 function LoginIndex() {
-    return (<></>);
+    return (
+        <LoginLayout />
+    );
 }
   
 export default LoginIndex

@@ -1,5 +1,9 @@
+import RegisterIndex from "../../../layouts/_auth/register";
+
 function RegisterPage() {
-    return (<></>);
+    return (
+        <RegisterIndex />
+    );
 }
   
 export default RegisterPage

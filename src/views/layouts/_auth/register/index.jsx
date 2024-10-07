@@ -1,5 +1,9 @@
+import RegisterLayout from "./layout";
+
 function RegisterIndex() {
-    return (<></>);
+    return (
+        <RegisterLayout />
+    );
 }
   
 export default RegisterIndex
