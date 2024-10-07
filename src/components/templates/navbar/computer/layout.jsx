@@ -45,7 +45,7 @@ const NavBarLayout = ({ isAuthenticated }) => {
                     </Link>
                     <div className="flex-1 flex items-center justify-end hidden sm:flex">
                         <div className="flex-10">
-                            <ul className="flex items-center gap-5 text-[17px]">
+                            <ul className="flex items-center gap-8 sm:gap-4 md:gap-6 lg:gap-8 text-[17px]">
                                 <Link to="#">
                                     <button className="relative font-bold transition-all hover:text-blue-700 cursor-pointer overflow-hidden group">
                                         <span className="transition align-middle">Docs</span>
@@ -90,7 +90,7 @@ const NavBarLayout = ({ isAuthenticated }) => {
                                         )}
                                     </li>
                                 ) : (
-                                    <div className='flex gap-4'>
+                                    <div className='flex gap-2'>
                                         <Link to="/auth/login">
                                             <button className="relative px-5 py-1 border-2 border-blue-700 rounded-full text-blue-700 font-semibold transition-all hover:bg-blue-700 hover:text-white shadow-md hover:shadow-lg">
                                                 <span className="align-middle">Log in</span>
@@ -115,7 +115,9 @@ const NavBarLayout = ({ isAuthenticated }) => {
                 </div>
             </nav>
 
-            <div className="mt-20" />
+            <div className="mt-20" >
+                <hr className='text-black' />
+            </div>
         </>
     );
 }
