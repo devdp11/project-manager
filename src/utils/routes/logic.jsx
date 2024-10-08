@@ -12,13 +12,15 @@ import ComputerNavBarIndex from '../../components/templates/navbar/computer';
 
 function RoutesLogic() {
 
-  const isAuthenticated = true;
+  const isAuthenticated = false;
+  const isLandindPage = true;
+
   const location = useLocation();
 
   return (
     <>
       
-      {location.pathname !== "/auth/login" && location.pathname !== "/auth/register" && <ComputerNavBarIndex isAuthenticated={isAuthenticated} />}
+      {location.pathname !== "/auth/login" && location.pathname !== "/auth/register" && <ComputerNavBarIndex isAuthenticated={isAuthenticated} isLandindPage={isLandindPage} />}
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/home" element={<HomePage />} />

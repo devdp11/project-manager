@@ -22,7 +22,7 @@ function DetailsLayout() {
             </div>
 
             <div className='bg-white mt-12 p-4'>
-                <h2 className="font-black text-lg">Dados da Minha Conta</h2>
+                <h2 className="font-black text-base sm:text-lg">Dados da Minha Conta</h2>
                 <form className="mt-8 grid gap-x-6 gap-y-8 grid-cols-1 md:grid-cols-2">
                     <TextField
                         id="firstname" label="Primeiro Nome"
@@ -49,7 +49,7 @@ function DetailsLayout() {
             </div>
 
             <div className='bg-white mt-12 p-4'>
-                <h2 className="font-black text-lg">Segurança e Privacidade</h2>
+                <h2 className="font-black text-base sm:text-lg">Segurança e Privacidade</h2>
                 <form className="mt-8 grid gap-x-6 gap-y-8 grid-cols-1">
                     <input type="text" name="username" autoComplete="off" className="hidden" />
                     

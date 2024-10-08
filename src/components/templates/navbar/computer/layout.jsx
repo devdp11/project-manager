@@ -10,7 +10,7 @@ import MobileNavBarIndex from '../mobile';
 import logo from '/logo2.svg';
 import avatar from '/avatar.svg';
 
-const NavBarLayout = ({ isAuthenticated }) => {
+const NavBarLayout = ({ isAuthenticated, isLandindPage }) => {
 
     const [click, setClick] = useState(false);
     const [dropdown, setDropdown] = useState(false);
@@ -46,24 +46,31 @@ const NavBarLayout = ({ isAuthenticated }) => {
                     <div className="flex-1 flex items-center justify-end hidden sm:flex">
                         <div className="flex-10">
                             <ul className="flex items-center gap-8 sm:gap-4 md:gap-6 lg:gap-8 text-[17px]">
-                                <Link to="#">
-                                    <button className="relative font-bold transition-all hover:text-blue-700 cursor-pointer overflow-hidden group">
-                                        <span className="transition align-middle">Docs</span>
-                                        <span className="absolute bottom-0 right-0 w-full h-[2px] bg-blue-700 transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300 ease-out"></span>
-                                    </button>
-                                </Link>
-                                <Link to="#">
-                                    <button className="relative font-bold transition-all hover:text-blue-700 cursor-pointer overflow-hidden group">
-                                        <span className="transition align-middle">Contacts</span>
-                                        <span className="absolute bottom-0 right-0 w-full h-[2px] bg-blue-700 transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300 ease-out"></span>
-                                    </button>
-                                </Link>
-                                <Link to="#">
-                                    <button className="relative font-bold transition-all hover:text-blue-700 cursor-pointer overflow-hidden group">
-                                        <span className="transition align-middle">Prices</span>
-                                        <span className="absolute bottom-0 right-0 w-full h-[2px] bg-blue-700 transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300 ease-out"></span>
-                                    </button>
-                                </Link>
+                                {isLandindPage ? (
+                                    <>
+                                        <Link to="#">
+                                            <button className="relative font-bold transition-all hover:text-blue-700 cursor-pointer overflow-hidden group">
+                                                <span className="transition align-middle">Docs</span>
+                                                <span className="absolute bottom-0 right-0 w-full h-[2px] bg-blue-700 transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300 ease-out"></span>
+                                            </button>
+                                        </Link>
+                                        <Link to="#">
+                                            <button className="relative font-bold transition-all hover:text-blue-700 cursor-pointer overflow-hidden group">
+                                                <span className="transition align-middle">Contacts</span>
+                                                <span className="absolute bottom-0 right-0 w-full h-[2px] bg-blue-700 transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300 ease-out"></span>
+                                            </button>
+                                        </Link>
+                                        <Link to="#">
+                                            <button className="relative font-bold transition-all hover:text-blue-700 cursor-pointer overflow-hidden group">
+                                                <span className="transition align-middle">Prices</span>
+                                                <span className="absolute bottom-0 right-0 w-full h-[2px] bg-blue-700 transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300 ease-out"></span>
+                                            </button>
+                                        </Link>
+                                    </>
+                                ) : (
+                                    <>
+                                    </>
+                                )}
                                 {isAuthenticated ? (
                                     <li ref={dropdownRef} className="relative flex items-center justify-center w-10 h-10 rounded-full text-white font-semibold transition cursor-pointer" onClick={HandleDropdown}>
                                         <img src={avatar} className="w-10 h-10 rounded-full border border-black object-cover" />

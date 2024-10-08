@@ -1,8 +1,8 @@
 import ComputerNavBarLayout from "./layout";
 
-function ComputerNavBarIndex({ isAuthenticated }) {
+function ComputerNavBarIndex({ isAuthenticated, isLandindPage }) {
     return (
-        <ComputerNavBarLayout isAuthenticated={isAuthenticated} />
+        <ComputerNavBarLayout isAuthenticated={isAuthenticated} isLandindPage={isLandindPage} />
     );
 }
   
