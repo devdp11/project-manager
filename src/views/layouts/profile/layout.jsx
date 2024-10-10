@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { FaUser, FaClipboardList, FaMap, FaMoneyCheck } from 'react-icons/fa';
+import { FaUser, FaMoneyCheck } from 'react-icons/fa';
 
 import ProfileRoutesIndex from './routes';
 
@@ -9,7 +9,7 @@ function ProfileLayout() {
     return (
         <div className='px-10 py-5 max-w-[1800px] mx-auto'>
             <div className="flex flex-col lg:flex-row gap-y-8 gap-x-12">
-                <div className="lg:w-96 lg:flex-shrink-0">
+                <div className="lg:w-80 lg:flex-shrink-0">
                     <span className="font-bold text-xl sm:text-2xl">
                         Bem vindo Diogo
                     </span>
@@ -45,14 +45,30 @@ function ProfileLayout() {
                         </ul>
                     </div>
 
-                    <div className="bg-white mt-6 py-8">
-                        <p className="uppercase font-extrabold text-base sm:text-lg mb-7 px-8">Necessita ajuda?</p>
+                    <div className="hidden lg:block flex-col bg-white mt-6 py-8">
+                        <p className="uppercase font-extrabold text-base sm:text-lg mb-2 px-8">Necessita ajuda?</p>
+                        <p className="text-sm text-gray-800 px-8">
+                            Peça ajuda à equipa de suporte!
+                            <Link to="#" className="text-blue-600 font-semibold hover:underline ml-1 whitespace-nowrap">
+                                Abra um ticket aqui.
+                            </Link>
+                        </p>
                     </div>
                 </div>
                 
 
-                <div className="h-screen w-full">
+                <div className="w-full">
                     <ProfileRoutesIndex />
+
+                    <div className="block lg:hidden flex-col bg-white mt-6 py-8">
+                        <p className="uppercase font-extrabold text-base sm:text-lg mb-2 px-8">Necessita ajuda?</p>
+                        <p className="text-sm text-gray-800 px-8">
+                            Peça ajuda à equipa de suporte!
+                            <Link to="#" className="text-blue-600 font-semibold hover:underline ml-1 whitespace-nowrap">
+                                Abra um ticket aqui.
+                            </Link>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
