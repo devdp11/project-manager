@@ -6,11 +6,15 @@ import { FiSettings } from "react-icons/fi";
 import { CiMenuFries } from 'react-icons/ci';
 
 import MobileNavBarIndex from '../mobile';
+import { UseAuthContext } from '../../../../utils/hooks/UseAuthContext';
 
 import logo from '/logo2.svg';
 import avatar from '/avatar.svg';
 
+
 const NavBarLayout = ({ isAuthenticated, isLandindPage }) => {
+
+    const { logout } = UseAuthContext();
 
     const [click, setClick] = useState(false);
     const [dropdown, setDropdown] = useState(false);
@@ -89,7 +93,7 @@ const NavBarLayout = ({ isAuthenticated, isLandindPage }) => {
                                                         Settings
                                                     </li>
                                                 </Link>
-                                                <li className="font-semibold flex text-red-500 rounded-bl-2xl rounded-br-2xl items-center px-4 py-2 hover:bg-red-500 hover:text-white cursor-pointer">
+                                                <li className="font-semibold flex text-red-500 rounded-bl-2xl rounded-br-2xl items-center px-4 py-2 hover:bg-red-500 hover:text-white cursor-pointer" onClick={logout}>
                                                     <FaDoorOpen className="mr-2" />
                                                     Logout
                                                 </li>
@@ -98,13 +102,13 @@ const NavBarLayout = ({ isAuthenticated, isLandindPage }) => {
                                     </li>
                                 ) : (
                                     <div className='flex gap-2'>
-                                        <Link to="/auth/login">
+                                        <Link to="/login">
                                             <button className="relative px-5 py-1 border-2 border-blue-700 rounded-full text-blue-700 font-semibold transition-all hover:bg-blue-700 hover:text-white shadow-md hover:shadow-lg">
                                                 <span className="align-middle">Log in</span>
                                             </button>
                                         </Link>
 
-                                        <Link to="/auth/register">
+                                        <Link to="/register">
                                             <button className="relative px-5 py-1 border-2 border-slate-900 rounded-full text-slate-900 font-semibold transition-all hover:bg-slate-900 hover:text-white shadow-md hover:shadow-lg">
                                                 <span className="align-middle">Register</span>
                                             </button>

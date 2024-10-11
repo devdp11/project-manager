@@ -10,25 +10,27 @@ import RegisterPage from '../../views/pages/_auth/register';
 
 import ComputerNavBarIndex from '../../components/templates/navbar/computer';
 
+import { UseAuthContext } from '../hooks/UseAuthContext';
+
 function RoutesLogic() {
 
-  const isAuthenticated = false;
-  const isLandindPage = true;
+  const { isAuthenticated } = UseAuthContext();
+  const isLandindPage = false;
 
   const location = useLocation();
 
   return (
     <>
       
-      {location.pathname !== "/auth/login" && location.pathname !== "/auth/register" && <ComputerNavBarIndex isAuthenticated={isAuthenticated} isLandindPage={isLandindPage} />}
+      {location.pathname !== "/login" && location.pathname !== "/register" && <ComputerNavBarIndex isAuthenticated={isAuthenticated} isLandindPage={isLandindPage} />}
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/home" element={<HomePage />} />
         {/* <Route path="/workspaceid/projectid" element={<ProjectPage />} /> */}
         {/* <Route path="/workspaceid/projectid/*" element={<BoardPage />} /> */}
         <Route path="/profile/*" element={<ProfilePage />} />
-        <Route path="/auth/login" element={<LoginPage />} />
-        <Route path="/auth/register" element={<RegisterPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
       </Routes> 
      
     </>
