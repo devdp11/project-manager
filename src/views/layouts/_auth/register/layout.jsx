@@ -64,7 +64,7 @@ function RegisterLayout() {
                         </div>
                     
                         <p className="text-sm mt-4 text-center text-gray-800">Already have an account?
-                            <Link to="/auth/login" className="text-blue-600 font-semibold hover:underline ml-1 whitespace-nowrap">
+                            <Link to="/login" className="text-blue-600 font-semibold hover:underline ml-1 whitespace-nowrap">
                                 Login here
                             </Link>
                         </p>

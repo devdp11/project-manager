@@ -20,11 +20,14 @@ export default function AuthGuard({ children }) {
             
             const isAuthPage = /^\/(login|register)/.test(path);
             const isProfilePage = /^\/profile/.test(path);
+            const isPrivatePage = /^\/home/.test(path);
 
             if (isAuthenticated && isAuthPage) {
-                navigate('/');
+                navigate('/home');
             } else if (!isAuthenticated && isProfilePage) {
                 navigate('/');
+            } else if (!isAuthenticated && isPrivatePage) {
+                navigate('/')
             }
         }
     }, [isAuthenticated, isInitialized, location.pathname, navigate]);

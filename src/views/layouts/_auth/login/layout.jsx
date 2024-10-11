@@ -1,17 +1,31 @@
+import { useState } from 'react';
 import { Link } from "react-router-dom";
 
 import { FaAddressBook, FaEye, FaEyeSlash } from "react-icons/fa";
+
+import { UseAuthContext } from '../../../../utils/hooks/UseAuthContext';
 
 import auth from "/auth.svg";
 import logo from "/logo.svg";
 
 function LoginLayout() {
+
+  const { login } = UseAuthContext();
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const HandleLogin = async (e) => {
+      e.preventDefault();
+      await login(email, password);
+  };
+
   return (
     <div className="font-[sans-serif]">
       <div className="min-h-screen flex fle-col items-center justify-center py-6 px-4">
         <div className="grid md:grid-cols-2 items-center gap-2 max-w-6xl w-full">
           <div className="border border-gray-300 rounded-lg p-6 max-w-md shadow-[0_2px_22px_-4px_rgba(93,96,127,0.2)] max-md:mx-auto">
-            <form className="space-y-4">
+            <form onSubmit={HandleLogin} className="space-y-4">
                 <div className="mb-8">
                     <div className="flex text-center justify-between items-center">
                     <h3 className="text-gray-800 text-3xl font-extrabold">Sign in</h3>
@@ -25,14 +39,14 @@ function LoginLayout() {
                 <div>
                     <label className="text-gray-800 text-sm mb-2 block">Email</label>
                     <div className="relative flex items-center">
-                      <input name="email" type="email" required className="w-full text-sm text-gray-800 border border-gray-300 px-4 py-3 rounded-lg outline-blue-600" placeholder="Enter email" />
+                      <input name="email" value={email} onChange={(e) => setEmail(e.target.value)} type="email" required className="w-full text-sm text-gray-800 border border-gray-300 px-4 py-3 rounded-lg outline-blue-600" placeholder="Enter email" />
                       <FaAddressBook className="w-[18px] h-[18px] absolute right-4" />
                     </div>
                 </div>
                 <div>
                     <label className="text-gray-800 text-sm mb-2 block">Password</label>
                     <div className="relative flex items-center">
-                      <input name="password" type="password" required className="w-full text-sm text-gray-800 border border-gray-300 px-4 py-3 rounded-lg outline-blue-600" placeholder="Enter password" />
+                      <input name="password" value={password} onChange={(e) => setPassword(e.target.value)} type="password" required className="w-full text-sm text-gray-800 border border-gray-300 px-4 py-3 rounded-lg outline-blue-600" placeholder="Enter password" />
                       <FaEye className="w-[18px] h-[18px] absolute right-4 cursor-pointer" />
                     </div>
                 </div>

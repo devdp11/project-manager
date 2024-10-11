@@ -2,6 +2,7 @@ export default (URL = "http://localhost:3000/") => {
     const defaultOptions = {
       headers: {
         "Content-Type": "application/json",
+        "Authorization": "Bearer "
       },
     };
   
