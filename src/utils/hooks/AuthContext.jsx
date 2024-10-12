@@ -1,6 +1,7 @@
 import { createContext, useReducer, useCallback, useMemo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import UseApi from '../api/UseApi';
+
+import { BASE_URL } from './constants';
 
 const initialState = {
     isInitialized: false,
@@ -42,8 +43,61 @@ AuthProvider.propTypes = {
 export function AuthProvider({ children }) {
     const [state, dispatch] = useReducer(reducer, initialState);
     const [isInitialized, setIsInitialized] = useState(false);
+
+    const defaultOptions = (token) => ({
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+    });
     
-    const { POST } = UseApi();
+    const GET = async (route, options = {}) => {
+        const response = await fetch(`${BASE_URL}/${route}`, {
+            ...defaultOptions(state.access_token),
+            ...options,
+            method: 'GET',
+        });
+        return await response.json();
+    };
+
+    const POST = async (route, data = {}, options = {}) => {
+        const response = await fetch(`${BASE_URL}/${route}`, {
+            ...defaultOptions(state.access_token),
+            ...options,
+            method: 'POST',
+            body: JSON.stringify(data),
+        });
+        return await response.json();
+    };
+
+    const PATCH = async (route, data = {}, options = {}) => {
+        const response = await fetch(`${BASE_URL}/${route}`, {
+            ...defaultOptions(state.access_token),
+            ...options,
+            method: 'PATCH',
+            body: JSON.stringify(data),
+        });
+        return await response.json();
+    };
+
+    const PUT = async (route, data = {}, options = {}) => {
+        const response = await fetch(`${BASE_URL}/${route}`, {
+            ...defaultOptions(state.access_token),
+            ...options,
+            method: 'PUT',
+            body: JSON.stringify(data),
+        });
+        return await response.json();
+    };
+
+    const DELETE = async (route, options = {}) => {
+        const response = await fetch(`${BASE_URL}/${route}`, {
+            ...defaultOptions(state.access_token),
+            ...options,
+            method: 'DELETE',
+        });
+        return await response.json();
+    };
 
     const login = useCallback(async (email, password) => {
         try {
@@ -64,7 +118,7 @@ export function AuthProvider({ children }) {
         } catch (error) {
             console.error('Login error:', error);
         }
-    }, [POST]);
+    }, []);
 
     const logout = useCallback(() => {
         localStorage.removeItem('access_token');
@@ -79,7 +133,7 @@ export function AuthProvider({ children }) {
                 type: 'INITIAL',
                 payload: { 
                     isAuthenticated: true,
-                    token: access_token
+                    access_token
                 }
             });
         } else {
@@ -96,11 +150,16 @@ export function AuthProvider({ children }) {
     const memorizedValue = useMemo(() => ({
         isInitialized,
         isAuthenticated: state.isAuthenticated,
-        user: state.user,
+        access_token: state.access_token,
         method: 'custom',
         login,
         logout,
-    }), [state.isAuthenticated, state.user, isInitialized, login, logout]);
+        GET,
+        POST,
+        PATCH,
+        PUT,
+        DELETE,
+    }), [state.isAuthenticated, state.access_token, isInitialized, login, logout]);
 
     return <AuthContext.Provider value={memorizedValue}>
         {children}
