@@ -6,7 +6,7 @@ import { FiSettings } from "react-icons/fi";
 import { CiMenuFries } from 'react-icons/ci';
 
 import MobileNavBarIndex from '../mobile';
-import { UseAuthContext } from '../../../../utils/hooks/UseAuthContext';
+import { UseAppContext } from '../../../../utils/hooks/UseAppContext';
 
 import logo from '/logo2.svg';
 import avatar from '/avatar.svg';
@@ -14,7 +14,7 @@ import avatar from '/avatar.svg';
 
 const NavBarLayout = ({ isAuthenticated, isLandindPage }) => {
 
-    const { logout } = UseAuthContext();
+    const { logout } = UseAppContext();
 
     const [click, setClick] = useState(false);
     const [dropdown, setDropdown] = useState(false);

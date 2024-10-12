@@ -2,17 +2,17 @@ import { BrowserRouter as Router} from 'react-router-dom';
 
 import RoutesIndex from '../utils/routes';
 import AuthGuard from '../utils/hooks/AuthGuard';
-import { AuthProvider } from '../utils/hooks/AuthContext';
+import { AppProvider } from '../utils/hooks/AppContext';
 
 function App() {
   return (
     <div className="bg-gray-100">
       <Router>
-        <AuthProvider>
+        <AppProvider>
           <AuthGuard>
             <RoutesIndex />
           </AuthGuard>
-        </AuthProvider>
+        </AppProvider>
       </Router>
     </div>
   );

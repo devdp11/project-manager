@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-import { UseAuthContext } from './UseAuthContext';
+import { UseAppContext } from './UseAppContext';
 import LoadingScreenIndex from '../../components/templates/loading';
 
 AuthGuard.propTypes = {
@@ -10,7 +10,7 @@ AuthGuard.propTypes = {
 };
 
 export default function AuthGuard({ children }) {
-    const { isAuthenticated, isInitialized } = UseAuthContext();
+    const { isAuthenticated, isInitialized } = UseAppContext();
     const navigate = useNavigate();
     const location = useLocation();
 

@@ -3,14 +3,14 @@ import { Link } from "react-router-dom";
 
 import { FaAddressBook, FaEye, FaEyeSlash } from "react-icons/fa";
 
-import { UseAuthContext } from '../../../../utils/hooks/UseAuthContext';
+import { UseAppContext } from '../../../../utils/hooks/UseAppContext';
 
 import auth from "/auth.svg";
 import logo from "/logo.svg";
 
 function LoginLayout() {
 
-  const { login } = UseAuthContext();
+  const { login } = UseAppContext();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

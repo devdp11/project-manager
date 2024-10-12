@@ -10,14 +10,14 @@ import RegisterPage from '../../views/pages/_auth/register';
 
 import ComputerNavBarIndex from '../../components/templates/navbar/computer';
 
-import { UseAuthContext } from '../hooks/UseAuthContext';
+import { UseAppContext } from '../hooks/UseAppContext';
 
 function RoutesLogic() {
 
-  const { isAuthenticated } = UseAuthContext();
-  const isLandindPage = false;
-
   const location = useLocation();
+
+  const { isAuthenticated } = UseAppContext();
+  const isLandindPage = false;
 
   return (
     <>

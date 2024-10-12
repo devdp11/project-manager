@@ -34,16 +34,17 @@ const reducer = (state, action) => {
     }
 };
 
-export const AuthContext = createContext(null);
+export const AppContext = createContext(null);
 
-AuthProvider.propTypes = {
+AppProvider.propTypes = {
     children: PropTypes.node,
 };
 
-export function AuthProvider({ children }) {
+export function AppProvider({ children }) {
     const [state, dispatch] = useReducer(reducer, initialState);
     const [isInitialized, setIsInitialized] = useState(false);
 
+    /* API REQUESTS */
     const defaultOptions = (token) => ({
         headers: {
             "Content-Type": "application/json",
@@ -161,7 +162,7 @@ export function AuthProvider({ children }) {
         DELETE,
     }), [state.isAuthenticated, state.access_token, isInitialized, login, logout]);
 
-    return <AuthContext.Provider value={memorizedValue}>
+    return <AppContext.Provider value={memorizedValue}>
         {children}
-    </AuthContext.Provider>;
+    </AppContext.Provider>;
 }
