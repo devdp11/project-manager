@@ -57,7 +57,7 @@ function ProfileLayout() {
                 </div>
                 
 
-                <div className="w-full">
+                <div className="lg:h-screen w-full">
                     <ProfileRoutesIndex />
 
                     <div className="block lg:hidden flex-col bg-white mt-6 py-8">

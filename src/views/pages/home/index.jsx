@@ -1,5 +1,9 @@
+import HomeIndex from "../../layouts/home";
+
 function HomePage() {
-    return (<></>);
+    return (
+        <HomeIndex />
+    );
 }
   
 export default HomePage

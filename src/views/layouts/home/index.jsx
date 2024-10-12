@@ -1,5 +1,9 @@
+import HomeLayout from "./layout"
+
 function HomeIndex() {
-    return (<></>);
+    return (
+        <HomeLayout />
+    );
 }
   
 export default HomeIndex
