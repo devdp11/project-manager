@@ -1,4 +1,5 @@
 import { createContext, useReducer, useCallback, useMemo, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { BASE_URL } from './constants';
@@ -43,6 +44,8 @@ AppProvider.propTypes = {
 export function AppProvider({ children }) {
     const [state, dispatch] = useReducer(reducer, initialState);
     const [isInitialized, setIsInitialized] = useState(false);
+
+    const navigate = useNavigate();
 
     /* API REQUESTS */
     const defaultOptions = (token) => ({
@@ -100,15 +103,30 @@ export function AppProvider({ children }) {
         return await response.json();
     };
 
+    /* AUTH FUNCTIONS */
+    const register = useCallback(async (name, email, password) => {
+        try {
+            const response = await POST('auth/signup', { name, email, password });
+            
+            if (response.status === 201) {
+                navigate("/login");
+            } else {
+                throw new Error(response.message || 'Register failed');
+            }
+        } catch (error) {
+            console.error('Register error:', error);
+        }
+    }, []);
+
     const login = useCallback(async (email, password) => {
         try {
             const response = await POST('auth/signin', { email, password });
             
-            if (response) {
-                const access_token = response.access_token;
-                
+            if (response.status == 200) {
+                const access_token = response.data[0].access_token;
+
                 localStorage.setItem('access_token', access_token);
-                
+    
                 dispatch({
                     type: 'LOGIN',
                     payload: { access_token },
@@ -153,6 +171,7 @@ export function AppProvider({ children }) {
         isAuthenticated: state.isAuthenticated,
         access_token: state.access_token,
         method: 'custom',
+        register,
         login,
         logout,
         GET,
@@ -160,7 +179,7 @@ export function AppProvider({ children }) {
         PATCH,
         PUT,
         DELETE,
-    }), [state.isAuthenticated, state.access_token, isInitialized, login, logout]);
+    }), [state.isAuthenticated, state.access_token, isInitialized, register, login, logout]);
 
     return <AppContext.Provider value={memorizedValue}>
         {children}

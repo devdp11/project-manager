@@ -68,12 +68,12 @@ function LoginLayout() {
 
                 <div className="mt-4">
                     <button type="submit" className="w-full shadow-xl py-3 px-4 text-sm tracking-wide rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
-                    Log in
+                      Log in
                     </button>
                 </div>
 
                 <p className="text-sm mt-4 text-center text-gray-800">Don't have an account?
-                    <Link to="/auth/register" className="text-blue-600 font-semibold hover:underline ml-1 whitespace-nowrap">
+                    <Link to="/register" className="text-blue-600 font-semibold hover:underline ml-1 whitespace-nowrap">
                         Register here
                     </Link>
                 </p>
