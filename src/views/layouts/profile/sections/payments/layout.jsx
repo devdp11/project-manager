@@ -1,5 +1,5 @@
 function PaymentsLayout() {
-    const title = "Métodos de pagamento";
+    const title = "Payment Methods";
 
     return (
         <>

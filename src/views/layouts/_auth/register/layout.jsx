@@ -15,10 +15,11 @@ function RegisterLayout() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
 
     const HandleRegister = async (e) => {
         e.preventDefault();
-        await register(name, email, password);
+        await register(name, email, password, confirmPassword);
     };
 
     return (
@@ -64,7 +65,7 @@ function RegisterLayout() {
                             <div>
                                 <label className="text-gray-800 text-sm mb-2 block">Confirm password</label>
                                 <div className="relative flex items-center">
-                                    <input name="password" type="password" required className="w-full text-sm text-gray-800 border border-gray-300 px-4 py-3 rounded-lg outline-blue-600" placeholder="Confirm password" />
+                                    <input name="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} type="password" required className="w-full text-sm text-gray-800 border border-gray-300 px-4 py-3 rounded-lg outline-blue-600" placeholder="Confirm password" />
                                     <FaEye className="w-[18px] h-[18px] absolute right-4 cursor-pointer" />
                                 </div>
                             </div>
