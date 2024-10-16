@@ -1,8 +1,9 @@
 import { createContext, useReducer, useCallback, useMemo, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import { BASE_URL } from './constants';
+import { BASE_URL, ValidPassword } from './constants';
+
+import AlertIndex from '../../components/templates/alert';
 
 const initialState = {
     isInitialized: false,
@@ -18,7 +19,7 @@ const reducer = (state, action) => {
                 isAuthenticated: action.payload.isAuthenticated,
                 access_token: action.payload.access_token,
             };
-        case 'LOGIN':
+        case 'AUTHENTICATE':
             return {
                 ...state,
                 isAuthenticated: true,
@@ -45,9 +46,23 @@ export function AppProvider({ children }) {
     const [state, dispatch] = useReducer(reducer, initialState);
     const [isInitialized, setIsInitialized] = useState(false);
 
-    const navigate = useNavigate();
+    const [alert, setAlert] = useState(null);
 
     /* API REQUESTS */
+    const checkresponse = async (response) => {
+        if (response.status === 403 || response.status === 401) {
+            const body = await response.clone().json();
+        
+            if (body.message === "Access Denied - Token Expired") {
+                console.log("Token expired, refreshing ...");
+            }
+        } else {
+            console.log("Token not expired ... ");
+        }
+    
+        return response;
+    };
+
     const defaultOptions = (token) => ({
         headers: {
             "Content-Type": "application/json",
@@ -61,9 +76,11 @@ export function AppProvider({ children }) {
             ...options,
             method: 'GET',
         });
-        return await response.json();
+    
+        await checkresponse(response);  
+        return response.json();         
     };
-
+    
     const POST = async (route, data = {}, options = {}) => {
         const response = await fetch(`${BASE_URL}/${route}`, {
             ...defaultOptions(state.access_token),
@@ -71,9 +88,11 @@ export function AppProvider({ children }) {
             method: 'POST',
             body: JSON.stringify(data),
         });
-        return await response.json();
+    
+        await checkresponse(response);  
+        return response.json();         
     };
-
+    
     const PATCH = async (route, data = {}, options = {}) => {
         const response = await fetch(`${BASE_URL}/${route}`, {
             ...defaultOptions(state.access_token),
@@ -81,9 +100,11 @@ export function AppProvider({ children }) {
             method: 'PATCH',
             body: JSON.stringify(data),
         });
-        return await response.json();
+    
+        await checkresponse(response);  
+        return response.json();         
     };
-
+    
     const PUT = async (route, data = {}, options = {}) => {
         const response = await fetch(`${BASE_URL}/${route}`, {
             ...defaultOptions(state.access_token),
@@ -91,30 +112,72 @@ export function AppProvider({ children }) {
             method: 'PUT',
             body: JSON.stringify(data),
         });
-        return await response.json();
+    
+        await checkresponse(response);  
+        return response.json();         
     };
-
+    
     const DELETE = async (route, options = {}) => {
         const response = await fetch(`${BASE_URL}/${route}`, {
             ...defaultOptions(state.access_token),
             ...options,
             method: 'DELETE',
         });
-        return await response.json();
+    
+        await checkresponse(response);  
+        return response.json();         
     };
 
     /* AUTH FUNCTIONS */
-    const register = useCallback(async (name, email, password) => {
+    const handletokens = (access_token, refresh_token) => {
+        localStorage.setItem('access_token', access_token);
+        localStorage.setItem('refresh_token', refresh_token);
+    
+        setAlert({
+            type: 'success',
+            description: 'You have authenticated successfully',
+        });
+
+        dispatch({
+            type: 'AUTHENTICATE',
+            payload: { access_token },
+        });
+    };
+
+    const register = useCallback(async (name, email, password, confirmPassword) => {
         try {
-            const response = await POST('auth/signup', { name, email, password });
+            if (password === confirmPassword) {
+                if (!ValidPassword.test(password)) {
+                    const response = await POST('auth/signup', { name, email, password });
             
-            if (response.status === 201) {
-                navigate("/login");
+                    if (response.status === 201) {
+                        const { access_token, refresh_token } = response.data;
+                        handletokens(access_token, refresh_token);
+
+                    } else {
+                        setAlert({
+                            type: 'warning',
+                            description: "Error creating account. Try again",
+                        });
+                    }
+                } else {
+                    setAlert({
+                        type: 'info',
+                        description: "Passwords must have at least one upper/lower, number/special character and 8 letters.",
+                    });
+                }
+                
             } else {
-                throw new Error(response.message || 'Register failed');
+                setAlert({
+                    type: 'info',
+                    description: "Passwords must match",
+                });
             }
         } catch (error) {
-            console.error('Register error:', error);
+            setAlert({
+                type: 'error',
+                description: "Something went wrong. Try again",
+            });
         }
     }, []);
 
@@ -122,26 +185,44 @@ export function AppProvider({ children }) {
         try {
             const response = await POST('auth/signin', { email, password });
             
-            if (response.status == 200) {
-                const access_token = response.data[0].access_token;
+            if (response.status === 200) {
+                const { access_token, refresh_token } = response.data;
+                handletokens(access_token, refresh_token);
 
-                localStorage.setItem('access_token', access_token);
-    
-                dispatch({
-                    type: 'LOGIN',
-                    payload: { access_token },
-                });
             } else {
-                throw new Error(response.message || 'Login failed');
+                setAlert({
+                    type: 'warning',
+                    description: "Invalid credentials. Try again",
+                });
             }
         } catch (error) {
-            console.error('Login error:', error);
+            setAlert({
+                type: 'error',
+                description: 'Something went wrong. Try again',
+            });
         }
     }, []);
 
-    const logout = useCallback(() => {
-        localStorage.removeItem('access_token');
-        dispatch({ type: 'LOGOUT' });
+    const logout = useCallback( async () => {
+        const response = await POST('auth/logout');
+
+        if (response.status === 200) {
+
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('refresh_token');
+            
+            dispatch({ type: 'LOGOUT' });
+
+            setAlert({
+                type: 'success',
+                description: "Logout sucessfully",
+            });
+        } else {
+            setAlert({
+                type: 'warning',
+                description: "Logout unsuccessful. Try again",
+            });
+        }
     }, []);
 
     useEffect(() => {
@@ -171,17 +252,17 @@ export function AppProvider({ children }) {
         isAuthenticated: state.isAuthenticated,
         access_token: state.access_token,
         method: 'custom',
-        register,
-        login,
-        logout,
-        GET,
-        POST,
-        PATCH,
-        PUT,
-        DELETE,
+        register, login, logout,
+        GET, POST, PATCH, PUT, DELETE,
     }), [state.isAuthenticated, state.access_token, isInitialized, register, login, logout]);
 
-    return <AppContext.Provider value={memorizedValue}>
-        {children}
-    </AppContext.Provider>;
+    return (
+        <AppContext.Provider value={memorizedValue}>
+            {children}
+
+            {alert && (
+                <AlertIndex alert_type={alert.type} alert_description={alert.description} onClose={() => setAlert(null)} />
+            )}
+        </AppContext.Provider>
+    );
 }
