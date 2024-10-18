@@ -43,7 +43,7 @@ const NavBarLayout = ({ isAuthenticated, isLandindPage }) => {
     return (
         <>
             <nav className="fixed bg-white w-full top-0 z-50">
-                <div className="h-20 max-w-[1750px] flex justify-between z-50 text-black lg:py-5 px-10 py-5">
+                <div className="h-20 max-w-[1750px] mx-auto flex justify-between z-50 text-black lg:py-5 px-10 py-5">
                     <Link className='flex inline-block align-bottom' to="/">
                         <img src={logo} className={`overflow-hidden transition-all w-28 `}  alt="logo" />
                     </Link>

@@ -6,7 +6,6 @@ import { AppProvider } from '../utils/hooks/AppContext';
 
 function App() {
   return (
-    <div className="max-w-[1750px] mx-auto">
       <Router>
         <AppProvider>
           <AuthGuard>
@@ -14,7 +13,6 @@ function App() {
           </AuthGuard>
         </AppProvider>
       </Router>
-    </div>
   );
 }
 

@@ -23,15 +23,17 @@ function RoutesLogic() {
     <>
       
       {location.pathname !== "/login" && location.pathname !== "/register" && <ComputerNavBarIndex isAuthenticated={isAuthenticated} isLandindPage={isLandindPage} />}
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/home" element={<HomePage />} />
-        {/* <Route path="/workspaceid/projectid" element={<ProjectPage />} /> */}
-        {/* <Route path="/workspaceid/projectid/*" element={<BoardPage />} /> */}
-        <Route path="/profile/*" element={<ProfilePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-      </Routes> 
+      <div className='max-w-[1750px] mx-auto p-10'>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/home" element={<HomePage />} />
+          {/* <Route path="/workspaceid/projectid" element={<ProjectPage />} /> */}
+          {/* <Route path="/workspaceid/projectid/*" element={<BoardPage />} /> */}
+          <Route path="/profile/*" element={<ProfilePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+        </Routes> 
+      </div>
      
     </>
   );

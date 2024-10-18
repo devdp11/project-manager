@@ -9,7 +9,7 @@ function ProfileLayout() {
     const { logout } = UseAppContext();
 
     return (
-        <div className='px-10 py-5 max-w-[1800px] mx-auto'>
+        <div className='max-w-[1750px] mx-auto'>
             <div className="flex flex-col lg:flex-row gap-y-8 gap-x-12">
                 <div className="lg:w-80 lg:flex-shrink-0">
                     <span className="font-bold text-xl sm:text-2xl">
