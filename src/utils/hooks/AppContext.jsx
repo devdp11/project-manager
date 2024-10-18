@@ -50,7 +50,7 @@ export function AppProvider({ children }) {
 
     /* API REQUESTS */
     const checkresponse = async (response) => {
-        if (response.status === 403 || response.status === 401) {
+        if (response.statusCode === 403 || response.statusCode === 401) {
             const body = await response.clone().json();
         
             if (body.message === "Access Denied - Token Expired") {
@@ -150,11 +150,12 @@ export function AppProvider({ children }) {
                 if (!ValidPassword.test(password)) {
                     const response = await POST('auth/signup', { name, email, password });
             
-                    if (response.status === 201) {
+                    if (response.statusCode === 201) {
                         const { access_token, refresh_token } = response.data;
                         handletokens(access_token, refresh_token);
 
                     } else {
+                        console.log("123");
                         setAlert({
                             type: 'warning',
                             description: "Error creating account. Try again",
@@ -185,7 +186,7 @@ export function AppProvider({ children }) {
         try {
             const response = await POST('auth/signin', { email, password });
             
-            if (response.status === 200) {
+            if (response.statusCode === 200) {
                 const { access_token, refresh_token } = response.data;
                 handletokens(access_token, refresh_token);
 
@@ -206,7 +207,7 @@ export function AppProvider({ children }) {
     const logout = useCallback( async () => {
         const response = await POST('auth/logout');
 
-        if (response.status === 200) {
+        if (response.statusCode === 200) {
 
             localStorage.removeItem('access_token');
             localStorage.removeItem('refresh_token');

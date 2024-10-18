@@ -21,8 +21,8 @@ function DetailsLayout() {
                 <h1 className="page_title font-semibold relative text-2xl">{title}</h1>
             </div>
 
-            <div className='bg-white mt-12 p-4'>
-                <h2 className="font-black text-base sm:text-lg">My account data</h2>
+            <div className='bg-gray-100 mt-12 p-4'>
+                <h2 className="font-black text-base sm:text-lg">Account data</h2>
                 <form className="mt-8 grid gap-x-6 gap-y-8 grid-cols-1 md:grid-cols-2">
                     <TextField
                         id="firstname" label="First Name"
@@ -48,7 +48,7 @@ function DetailsLayout() {
                 </form>
             </div>
 
-            <div className='bg-white mt-12 p-4'>
+            <div className='bg-gray-100 mt-12 p-4'>
                 <h2 className="font-black text-base sm:text-lg">Security and Privacy</h2>
                 <form className="mt-8 grid gap-x-6 gap-y-8 grid-cols-1">
                     <input type="text" name="username" autoComplete="off" className="hidden" />

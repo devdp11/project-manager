@@ -6,7 +6,7 @@ import { AppProvider } from '../utils/hooks/AppContext';
 
 function App() {
   return (
-    <div className="bg-gray-100">
+    <div className="max-w-[1750px] mx-auto">
       <Router>
         <AppProvider>
           <AuthGuard>
