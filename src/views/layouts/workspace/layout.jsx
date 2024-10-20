@@ -1,24 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { FaFilter, FaPlus } from "react-icons/fa";
 
-import CardIndex from '../../../components/templates/card/workspaces';
+import CardIndex from '../../../components/templates/card/projects';
 import { UseAppContext } from '../../../utils/hooks/UseAppContext';
 
-function HomeLayout() {
+function WorkspaceLayout() {
+
     const { GET, isAuthenticated } = UseAppContext();
-    const [workspaces, setWorkspaces] = useState([]);
-    const [sharedWorkspaces, setSharedWorkspaces] = useState([]);
+    const { workspaceId } = useParams();
+
+    const [projects, setProjects] = useState([]);
+    const [sharedProjects, setSharedProjects] = useState([]);
 
     useEffect(() => {
-        const fetchWorkspaces = async () => {
+        const fetchProjects = async () => {
             try {
-                const response = await GET('workspace');
+                const response = await GET(`workspace/${workspaceId}/project`);
 
                 if (response.statusCode === 200) {
-                    setWorkspaces(response.data.workspaces);
-                    setSharedWorkspaces(response.data.sharedWorkspaces);
+                    setProjects(response.ownerProjects);
+                    setSharedProjects(response.sharedProjects);
                 } else {
-                    throw new Error('Failed to fetch workspaces');
+                    throw new Error('Failed to fetch projects');
                 }
             } catch (error) {
                 console.error(error);
@@ -26,15 +30,17 @@ function HomeLayout() {
         };
 
         if (isAuthenticated) {
-            fetchWorkspaces();
+            if (workspaceId) {
+                fetchProjects();
+            }
         }
-    }, [isAuthenticated, GET]);
+    }, [workspaceId, isAuthenticated, GET]);
 
     return (
         <>
             <div className='flex justify-between items-center flex-col sm:flex-row'>
                 <div className='mb-5 sm:mb-0'>
-                    <h1 className='text-xl font-bold'>Your Workspaces</h1>
+                    <h1 className='text-xl font-bold'>Projects</h1>
                 </div>
                 <div className='grid grid-cols-2 gap-2'>
                     <button className="items-center px-2 bg-green-600 hover:bg-green-700 duration-200 text-white border border-green-600 text-sm md:text-base font-semibold h-10 flex items-center rounded-md" type="submit">
@@ -50,23 +56,23 @@ function HomeLayout() {
 
             <hr className="my-5" />
 
-            <CardIndex contents={workspaces} />
+            <CardIndex contents={projects} workspaceId={workspaceId} />
 
-            {sharedWorkspaces.length > 0 && (
+            {sharedProjects.length > 0 && (
                 <>
                     <div className='flex mt-20 items-center'>
                         <div>
-                            <h1 className='text-xl font-bold'>Shared Workspaces</h1>
+                            <h1 className='text-xl font-bold'>Shared Projects</h1>
                         </div>
                     </div>
 
                     <hr className="my-5" />
 
-                    <CardIndex contents={sharedWorkspaces} />
+                    <CardIndex contents={sharedProjects} workspaceId={workspaceId} />
                 </>
             )}
         </>
     );
 }
-
-export default HomeLayout;
+  
+export default WorkspaceLayout

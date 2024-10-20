@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-route
 
 import LandingPage from '../../views/pages/landing';
 import HomePage from '../../views/pages/home';
+import WorkspacePage from '../../views/pages/workspace';
 import ProjectPage from '../../views/pages/project';
 import BoardPage from '../../views/pages/board';
 import ProfilePage from '../../views/pages/profile';
@@ -27,8 +28,9 @@ function RoutesLogic() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/home" element={<HomePage />} />
-          {/* <Route path="/workspaceid/projectid" element={<ProjectPage />} /> */}
-          {/* <Route path="/workspaceid/projectid/*" element={<BoardPage />} /> */}
+          <Route path="/workspace/:workspaceId/projects" element={<WorkspacePage />} />
+          <Route path="/workspace/:workspaceId/project/:projectId/boards" element={<ProjectPage />} />
+          <Route path="/workspace/:workspaceId/project/:projectId/board/:boardId" element={<BoardPage />} />
           <Route path="/profile/*" element={<ProfilePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
